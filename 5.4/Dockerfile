@@ -50,4 +50,13 @@ RUN 	curl -L -o /root/xdebug.tgz https://pecl.php.net/get/xdebug-2.3.2.tgz && \
 	cd /root && \
 	rm -fr /root/xdebug-2.3.2 && \
 	rm -fr /root/xdebug.tgz
+
+# Additional stuff for Manu
+RUN apt-get -y install libz-dev libmemcached-dev libmemcached11 libmemcachedutil2 build-essential \
+&& pecl install memcached-2.2.0 \
+&& echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini \
+&& apt-get remove -y build-essential libmemcached-dev libz-dev \
+&& apt-get autoremove -y \
+&& apt-get clean \
+&& rm -rf /tmp/pear
 	
